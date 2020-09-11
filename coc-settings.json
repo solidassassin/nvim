@@ -1,0 +1,7 @@
+{
+    "suggest.noselect": false,
+    "diagnostic.refreshOnInsertMode": true,
+    "diagnostic.checkCurrentLine": true,
+    "python.formatting.provider": "black",
+    "python.linting.pylamaEnabled": true
+}
