@@ -17,8 +17,6 @@ set smartcase
 nnoremap <silent> <Esc> :nohlsearch<CR>
 nnoremap <silent> <Space>f :call CocAction('format')<CR>
 nnoremap <silent> <Space>p :FZF<CR>
-" Doesn't seem to be binded to coc format, so this should do:
-autocmd FileType julia nnoremap <silent> <Space>f :call JuliaFormatter#Format(0)<CR>
 " }}}
 
 " Plugins {{{
@@ -61,7 +59,6 @@ colorscheme onedark
 let g:python3_host_prog = '/usr/bin/python3'
 let g:latex_to_unicode_auto = 1
 let g:python_highlight_all = 1
-let g:AutoPairsFlyMode = 1
 " }}}
 
 " Lightline {{{
