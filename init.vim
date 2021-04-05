@@ -83,7 +83,6 @@ let g:vim_markdown_conceal_code_blocks = 0
 
 let g:livepreview_previewer = 'brave'
 " File specific remaps for quick runs
-" No cariage return because I might pass args
 au FileType julia nnoremap <buffer> <Space>r :w<CR> :! julia %<CR>
 au FileType rust nnoremap <buffer> <Space>r :w<CR> :! cargo run<CR>
 au FileType python nnoremap <buffer> <Space>r :w<CR> :! python %<CR>
