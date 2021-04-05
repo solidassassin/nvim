@@ -16,7 +16,11 @@ set smartcase
 " Remaps {{{
 nnoremap <silent> <Esc> :nohlsearch<CR>
 nnoremap <silent> <Space>f :call CocAction('format')<CR>
-nnoremap <silent> <Space>p :FZF<CR>
+nnoremap <silent> <Space>\ :FZF<CR>
+nnoremap <silent> <Space>e :CocCommand explorer<CR>
+nnoremap <silent> <Space>q :CocFix<CR>
+nnoremap <C-Left> :tabprevious<CR>
+nnoremap <C-Right> :tabnext<CR>
 " }}}
 
 " Plugins {{{
@@ -30,40 +34,68 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'jiangmiao/auto-pairs'
 Plug 'airblade/vim-rooter'
 Plug 'airblade/vim-gitgutter'
+Plug 'Yggdroot/indentLine'
 " Customization
 Plug 'kaicataldo/material.vim'
+Plug 'hzchirs/vim-material'
 Plug 'joshdick/onedark.vim'
 Plug 'ntk148v/vim-horizon'
 Plug 'itchyny/lightline.vim'
 " Language specific
 Plug 'sheerun/vim-polyglot'
-Plug 'rust-lang/rust.vim'
 Plug 'JuliaEditorSupport/julia-vim'
-Plug 'kdheepak/JuliaFormatter.vim'
-Plug 'vim-python/python-syntax'
-Plug 'leafgarland/typescript-vim'
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'ekalinin/Dockerfile.vim'
-" Misc
-Plug 'MonliH/vimsence'
+Plug 'xuhdev/vim-latex-live-preview'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
 call plug#end()
 " }}}
 
 " Theme {{{
-autocmd ColorScheme * highlight Normal ctermbg=NONE guibg=NONE
-colorscheme onedark
+" The goal here is too keep background consistency
+" so I make it transparent and set it in the term config
+au ColorScheme * hi Normal guibg=NONE
+au ColorScheme * hi SignColumn guibg=NONE
+au ColorScheme * hi Folded guibg=NONE
+
+let g:material_terminal_italics = 1
+let g:material_theme_style = 'ocean'
+colorscheme material
+
+" Indent lines
+let g:indentLine_color_term = 233
+let g:indentLine_color_gui = '#3b3f51'
+
+let g:indentLine_color_tty_light = 7
+let g:indentLine_color_dark = 7
+
+let g:indentLine_bgcolor_term = 202
 " }}}
 
 " Languages {{{
 let g:python3_host_prog = '/usr/bin/python3'
 let g:latex_to_unicode_auto = 1
 let g:python_highlight_all = 1
+
+" Fix for the indentLine extension
+let g:vim_json_syntax_conceal = 0
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
+
+" File specific remaps for quick runs
+" No cariage return because I might pass args
+au FileType julia nnoremap <buffer> <Space>r :w<CR> :! julia %<CR>
+au FileType rust nnoremap <buffer> <Space>r :w<CR> :! cargo run<CR>
+au FileType python nnoremap <buffer> <Space>r :w<CR> :! python %<CR>
+au FileType csharp nnoremap <buffer> <Space>r :w<CR> :! dotnet run<CR>
+" I use Dart only for Flutter
+au FileType dart nnoremap <silent> <Space>r :CocCommand flutter.run<CR>
 " }}}
 
 " Lightline {{{
 let g:lightline = {
-      \ 'colorscheme': 'onedark',
+      \ 'colorscheme': 'material_vim',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -78,10 +110,3 @@ let s:palette.inactive.middle = s:palette.normal.middle
 let s:palette.tabline.middle = s:palette.normal.middle
 " }}}
 
-" Discord {{{
-let g:vimsence_client_id = '422042111827902484'
-let g:vimsence_small_text = 'NeoVim'
-let g:vimsence_small_image = 'neovim'
-let g:vimsence_file_explorer_text = 'In file explorer'
-let g:vimsence_file_explorer_details = 'Looking for files'
-" }}}
