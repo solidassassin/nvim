@@ -27,7 +27,7 @@ nnoremap <C-Right> :tabnext<CR>
 call plug#begin(stdpath('data') . '/plugged')
 
 " Utility
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-vinegar'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -44,7 +44,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'JuliaEditorSupport/julia-vim'
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'ekalinin/Dockerfile.vim'
-Plug 'xuhdev/vim-latex-live-preview'
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
 call plug#end()
@@ -81,6 +81,7 @@ let g:vim_json_syntax_conceal = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 
+let g:livepreview_previewer = 'brave'
 " File specific remaps for quick runs
 " No cariage return because I might pass args
 au FileType julia nnoremap <buffer> <Space>r :w<CR> :! julia %<CR>
@@ -89,6 +90,10 @@ au FileType python nnoremap <buffer> <Space>r :w<CR> :! python %<CR>
 au FileType csharp nnoremap <buffer> <Space>r :w<CR> :! dotnet run<CR>
 " I use Dart only for Flutter
 au FileType dart nnoremap <silent> <Space>r :CocCommand flutter.run<CR>
+
+" Preview
+au FileType markdown nnoremap <silent> <Space>p :MarkdownPreview<CR>
+au FileType tex nnoremap <silent> <Space>p :LLPStartPreview<CR>
 " }}}
 
 " Lightline {{{
