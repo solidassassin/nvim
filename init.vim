@@ -37,8 +37,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'Yggdroot/indentLine'
 " Customization
 Plug 'kaicataldo/material.vim'
-Plug 'hzchirs/vim-material'
-Plug 'joshdick/onedark.vim'
 Plug 'ntk148v/vim-horizon'
 Plug 'itchyny/lightline.vim'
 " Language specific
