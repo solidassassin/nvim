@@ -6,6 +6,7 @@ syntax enable
 set mouse=a
 set ts=4 sw=4
 set clipboard+=unnamedplus
+set inccommand=split
 set number
 set noshowmode
 set relativenumber
