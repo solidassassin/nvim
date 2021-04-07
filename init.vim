@@ -73,7 +73,6 @@ let g:indentLine_bgcolor_term = 202
 
 " Languages {{{
 let g:python3_host_prog = '/usr/bin/python3'
-let g:latex_to_unicode_auto = 1
 let g:python_highlight_all = 1
 
 " Fix for the indentLine extension
