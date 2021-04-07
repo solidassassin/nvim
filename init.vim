@@ -57,9 +57,13 @@ call plug#end()
 " Theme {{{
 " The goal here is too keep background consistency
 " so I make it transparent and set it in the term config
-au ColorScheme * hi Normal guibg=NONE
-au ColorScheme * hi SignColumn guibg=NONE
-au ColorScheme * hi Folded guibg=NONE
+function! SetBackground()
+      hi Normal guibg=NONE
+      hi SignColumn guibg=NONE
+      hi Folded guibg=NONE
+endfunction
+
+au! ColorScheme * call SetBackground()
 
 let g:material_terminal_italics = 1
 let g:material_theme_style = 'ocean'
@@ -85,17 +89,25 @@ let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 
 let g:livepreview_previewer = 'brave'
+
+
 " File specific remaps for quick runs
-au FileType julia nnoremap <buffer> <Space>r :w<CR> :! julia %<CR>
-au FileType rust nnoremap <buffer> <Space>r :w<CR> :! cargo run<CR>
-au FileType python nnoremap <buffer> <Space>r :w<CR> :! python %<CR>
-au FileType csharp nnoremap <buffer> <Space>r :w<CR> :! dotnet run<CR>
-" I use Dart only for Flutter
-au FileType dart nnoremap <silent> <Space>r :CocCommand flutter.run<CR>
+augroup quick_run
+      au!
+      au FileType julia nnoremap <buffer> <Space>r :! julia %<CR>
+      au FileType rust nnoremap <buffer> <Space>r :! cargo run<CR>
+      au FileType python nnoremap <buffer> <Space>r :! python %<CR>
+      au FileType csharp nnoremap <buffer> <Space>r :! dotnet run<CR>
+      " I use Dart only for Flutter
+      au FileType dart nnoremap <silent> <Space>r :CocCommand flutter.run<CR>
+augroup END
 
 " Preview
-au FileType markdown nnoremap <silent> <Space>p :MarkdownPreview<CR>
-au FileType tex nnoremap <silent> <Space>p :LLPStartPreview<CR>
+augroup preview
+      au!
+      au FileType markdown nnoremap <silent> <Space>p :MarkdownPreview<CR>
+      au FileType tex nnoremap <silent> <Space>p :LLPStartPreview<CR>
+augroup END
 " }}}
 
 " Lightline {{{
@@ -109,6 +121,7 @@ let g:lightline = {
       \   'gitbranch': 'FugitiveHead'
       \ },
       \ }
+
 let s:palette = g:lightline#colorscheme#{g:lightline.colorscheme}#palette
 let s:palette.normal.middle = [ [ 'NONE', 'NONE', 'NONE', 'NONE' ] ]
 let s:palette.inactive.middle = s:palette.normal.middle
