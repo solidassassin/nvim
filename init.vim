@@ -13,6 +13,9 @@ set relativenumber
 set termguicolors
 set ignorecase
 set smartcase
+" Undo history
+set undofile
+set undodir=~/.config/nvim/undo
 
 " Remaps {{{
 nnoremap <silent> <Esc> :nohlsearch<CR>
