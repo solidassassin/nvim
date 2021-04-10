@@ -17,14 +17,32 @@ set smartcase
 set undofile
 set undodir=~/.config/nvim/undo
 
+" Helper functions {{{
+function! SetBackground()
+      hi Normal guibg=NONE
+      hi SignColumn guibg=NONE
+      hi Folded guibg=NONE
+endfunction
+
+function! FileCmd()
+      if system('git rev-parse --is-inside-work-tree') =~ 'true'
+            :GFiles
+      else
+            :Files
+      endif
+endfunction
+" }}}
+
 " Remaps {{{
 nnoremap <silent> <Esc> :nohlsearch<CR>
 nnoremap <silent> <Space>f :call CocAction('format')<CR>
-nnoremap <silent> <Space>\ :FZF<CR>
 nnoremap <silent> <Space>e :CocCommand explorer<CR>
 nnoremap <silent> <Space>q :CocFix<CR>
-nnoremap <C-Left> :tabprevious<CR>
-nnoremap <C-Right> :tabnext<CR>
+nnoremap <silent> <C-\> :call FileCmd()<CR>
+nnoremap <silent> <C-Left> :tabprevious<CR>
+nnoremap <silent> <C-Right> :tabnext<CR>
+nnoremap <silent> / :BLines<CR>
+nnoremap <C-s> :%s/
 " }}}
 
 " Plugins {{{
@@ -35,6 +53,7 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-vinegar'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'airblade/vim-rooter'
 Plug 'airblade/vim-gitgutter'
@@ -57,11 +76,6 @@ call plug#end()
 " Theme {{{
 " The goal here is too keep background consistency
 " so I make it transparent and set it in the term config
-function! SetBackground()
-      hi Normal guibg=NONE
-      hi SignColumn guibg=NONE
-      hi Folded guibg=NONE
-endfunction
 
 au! ColorScheme * call SetBackground()
 
