@@ -94,6 +94,29 @@ let g:indentLine_bgcolor_term = 202
 " }}}
 
 " Languages {{{
+let g:coc_global_extensions = [
+      \ 'coc-css',
+      \ 'coc-discord-rpc',
+      \ 'coc-docker',
+      \ 'coc-explorer',
+      \ 'coc-flutter',
+      \ 'coc-go',
+      \ 'coc-html',
+      \ 'coc-json',
+      \ 'coc-julia',
+      \ 'coc-markdownlint',
+      \ 'coc-prettier',
+      \ 'coc-prisma',
+      \ 'coc-python',
+      \ 'coc-rust-analyzer',
+      \ 'coc-sh',
+      \ 'coc-svelte',
+      \ 'coc-texlab',
+      \ 'coc-tsserver',
+      \ 'coc-vimlsp',
+      \ 'coc-yaml',
+      \ ]
+
 let g:python3_host_prog = '/usr/bin/python3'
 let g:python_highlight_all = 1
 
