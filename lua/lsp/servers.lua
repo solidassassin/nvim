@@ -6,25 +6,25 @@ local fn = vim.fn
 local luasnip = require "luasnip"
 
 _G.tab_complete = function()
-    if fn.pumvisible() == 1 then
-        return terms "<C-n>"
-    elseif luasnip and luasnip.expand_or_jumpable() then
-        return terms "<Plug>luasnip-expand-or-jump"
-    elseif check_back_space() then
-        return terms "<Tab>"
-    else
-        return fn['compe#complete']()
-    end
+	if fn.pumvisible() == 1 then
+		return terms "<C-n>"
+	elseif luasnip and luasnip.expand_or_jumpable() then
+		return terms "<Plug>luasnip-expand-or-jump"
+	elseif check_back_space() then
+		return terms "<Tab>"
+	else
+		return fn['compe#complete']()
+	end
 end
 
 _G.s_tab_complete = function()
-    if fn.pumvisible() == 1 then
-        return terms "<C-p>"
-    elseif luasnip and luasnip.jumpable(-1) then
-        return terms "<Plug>luasnip-jump-prev"
-    else
-        return terms "<S-Tab>"
-    end
+	if fn.pumvisible() == 1 then
+		return terms "<C-p>"
+	elseif luasnip and luasnip.jumpable(-1) then
+		return terms "<Plug>luasnip-jump-prev"
+	else
+		return terms "<S-Tab>"
+	end
 end
 
 local function on_attach(client, bufnr)
@@ -38,15 +38,15 @@ local function on_attach(client, bufnr)
 		keys["<Space>"].f = {"<Cmd>lua vim.lsp.buf.range_formatting()<CR>", "Range format"}
 	end
 
-    if client.resolved_capabilities.document_highlight then
-        cmd[[
-            augroup lsp_document_highlight
-                au! * <buffer>
-                au CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-                au CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-            augroup END
-        ]]
-    end
+	if client.resolved_capabilities.document_highlight then
+		cmd[[
+			augroup lsp_document_highlight
+				au! * <buffer>
+				au CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+				au CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+			augroup END
+		]]
+	end
 	require "which-key".register(keys)
 end
 
@@ -59,9 +59,9 @@ local defaults = {
 }
 
 language_servers({
-    rust_analyzer = {};
-    tsserver = {};
-    julials = {};
+	rust_analyzer = {};
+	tsserver = {};
+	julials = {};
 	pyright = {};
 	dartls = {};
 	bashls = {};
