@@ -20,7 +20,7 @@ This configuration saves the backups and undo history in the `.cache` folder.
 To create the used folder structure just run this in the root of the `nvim` folder:
 
 ```sh
-➜ mkdir -p .cache/{backups, undo}
+➜ mkdir -p .cache/{backups,undo}
 ```
 
 ### Extensions
