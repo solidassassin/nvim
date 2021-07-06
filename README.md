@@ -1,20 +1,28 @@
 # My NeoVim config
 
-The config is quite short because it heavily relies on the
-[Conquer of Completion](https://github.com/neoclide/coc.nvim) (Neo)Vim plugin.
+**NOTE:** This config is created for Unix systems and would require some
+modifications to work on Windows.
 
 ## Requirements
 
-- NeoVim
-- NodeJS
-- Vim Plug
+- [NeoVim 0.5+](https://github.com/neovim/neovim/wiki/Installing-Neovim)
+- [paq-nvim](https://github.com/savq/paq-nvim#installation)
 
 ## Setup
 
 ```sh
-➜ .config git clone https://github.com/solidassassin/nvim.git
+➜ git clone https://github.com/solidassassin/nvim.git
 ```
 
+### Extensions
+
+Just run the command bellow once nvim is open:
+
 ```vim
-:PlugInstall
+:PaqInstall
 ```
+
+### Language servers
+
+Each lanuage server used requires to be installed.
+[This guide](https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md) will help you do so.
