@@ -33,5 +33,5 @@ Just run the command bellow once nvim is open:
 
 ### Language servers
 
-Each lanuage server used requires to be installed.
+Each language server used requires to be installed.
 [This guide](https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md) will help you do so.
