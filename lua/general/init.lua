@@ -20,6 +20,7 @@ set_opts {
 	updatetime = 500;
 	showmode = false;
 	timeoutlen = 500;
+	shortmess = 'c';
 }
 
 require "which-key".register(keys)
