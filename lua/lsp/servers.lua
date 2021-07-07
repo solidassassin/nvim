@@ -70,5 +70,6 @@ language_servers({
 	html = {};
 	cssls = {};
 	svelte = {};
+	clangd = {};
 }, defaults)
 
