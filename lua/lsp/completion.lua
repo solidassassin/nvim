@@ -14,7 +14,10 @@ require "compe".setup {
 		buffer = { priority = 300 };
 		calc = {priority = 400 };
 		nvim_lua = { priority = 600 };
-		spell = { priority = 100 };
+		spell = {
+			priority = 100;
+			filetypes = { "markdown", "tex", "latex", "text" };
+		};
 		tags = { priority = 200 };
 		luasnip = { priority = 700 };
 		nvim_lsp = true;

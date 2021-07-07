@@ -4,6 +4,7 @@ require "material".set()
 
 g.material_style = "deep ocean"
 g.material_variable_color = "#8b8ca3"
+g.material_hide_eob = true
 
 require "gitsigns".setup {
 	keymaps = {}
