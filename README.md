@@ -11,7 +11,7 @@ modifications to work on Windows.
 ## Setup
 
 ```sh
-➜ git clone https://github.com/solidassassin/nvim.git
+.config ➜ git clone https://github.com/solidassassin/nvim.git
 ```
 
 ### Cache directory
@@ -20,7 +20,7 @@ This configuration saves the backups and undo history in the `.cache` folder.
 To create the used folder structure just run this in the root of the `nvim` folder:
 
 ```sh
-➜ mkdir -p .cache/{backups,undo}
+nvim ➜ mkdir -p .cache/{backups,undo}
 ```
 
 ### Extensions
