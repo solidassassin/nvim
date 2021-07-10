@@ -20,8 +20,8 @@ require "nvim-autopairs".setup {
 vim.cmd[[
 	augroup theming
 		au!
-		au BufEnter *.{yaml,yml} :hi TSField guifg=#f56278
-		au BufEnter *{.yaml,.yml}\@<! :hi TSField guifg=g:material_variable_color
+		au CursorMoved *.{yaml,yml} :hi TSField guifg=#f56278
+		au CursorMoved *{.yaml,.yml}\@<! :hi TSField guifg=g:material_variable_color
 	augroup END
 ]]
 

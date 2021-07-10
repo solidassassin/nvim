@@ -70,5 +70,12 @@ language_servers({
 	html = {};
 	cssls = {};
 	svelte = {};
+	yamlls = {
+		settings = {
+			yaml = {
+				schemas = { kubernetes = "k-*" };
+			}
+		}
+	};
 }, defaults)
 
