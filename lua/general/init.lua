@@ -21,6 +21,7 @@ set_opts {
 	showmode = false;
 	timeoutlen = 500;
 	shortmess = 'c';
+	wrap = false;
 }
 
 require "which-key".register(keys)

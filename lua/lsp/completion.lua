@@ -12,7 +12,7 @@ require "compe".setup {
 	source = {
 		path = { priority = 500 };
 		buffer = { priority = 300 };
-		calc = {priority = 400 };
+		calc = { priority = 400 };
 		nvim_lua = { priority = 600 };
 		spell = {
 			priority = 100;
