@@ -6,6 +6,7 @@ local HOME = os.getenv("HOME")
 set_opts {
 	mouse = 'a';
 	ts = 4, sw = 4;
+	expandtab = true;
 	clipboard = "unnamedplus";
 	inccommand = "split";
 	number = true;

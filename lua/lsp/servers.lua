@@ -67,6 +67,7 @@ language_servers({
 	bashls = {};
 	gopls = {};
 	dockerls = {};
+	terraformls = {};
 	html = {};
 	cssls = {};
 	svelte = {};
