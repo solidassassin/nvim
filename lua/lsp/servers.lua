@@ -78,5 +78,15 @@ dartls = {};
             }
         }
     };
+    sumneko_lua = {
+        cmd = { "lua-language-server" };
+        settings = {
+            Lua = {
+                diagnostics = {
+                    globals = { "vim", "_G" };
+                }
+            }
+        }
+    };
 }, defaults)
 
