@@ -1,12 +1,14 @@
-function set_opts(options)
+local M = {}
+
+function M.set_opts(options)
     for a, b in pairs(options) do
         vim.opt[a] = b
     end
 end
 
 -- I use which-keys instead of this
-function map(t)
-    opts = {
+function M.map(t)
+    local opts = {
         t.mode or 'n',
         t[1],
         t[2],
@@ -23,17 +25,17 @@ function map(t)
 end
 
 -- I don't really use this, but might come in handy
-function prequire(...)
+function M.prequire(...)
     local status, lib = pcall(require, ...)
     if status then return lib end
     return nil
 end
 
-function terms(str)
+function M.terms(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
-function check_back_space()
+function M.check_back_space()
     local col = vim.fn.col('.') - 1
     if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
         return true
@@ -42,7 +44,7 @@ function check_back_space()
     end
 end
 
-function language_servers(langs, defaults)
+function M.language_servers(langs, defaults)
     local lsp = require "lspconfig"
 
     for _, conf in pairs(langs) do
@@ -55,3 +57,5 @@ function language_servers(langs, defaults)
         lsp[lang].setup(conf)
     end
 end
+
+return M

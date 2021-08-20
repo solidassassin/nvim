@@ -1,4 +1,6 @@
-keys = {
+local M = {}
+
+M.general_keys = {
     -- NOTE: Some mappings are assigned in the lspconfig `on_attach` function
     ["<Esc>"] = { ":nohlsearch<CR>", "Exit search" };
     ["<C-s>"] = { ":%s/", "Replace", silent = false };
@@ -25,7 +27,7 @@ keys = {
     ["<S-Down>"] = { ":wincmd j<CR>", "Navigate down" };
 }
 
-saga_keys = {
+M.saga_keys = {
     name = "Lsp";
     p = { "<cmd>lua require 'lspsaga.provider'.preview_definition()<CR>" ,"Preview definition" };
     r = { "<cmd>lua require 'lspsaga.rename'.rename()<CR>", "Rename definition" };
@@ -40,8 +42,9 @@ saga_keys = {
 }
 
 if os.execute("git status") == 0 then
-    local keys_git = keys['\\']
+    local keys_git = M.general_keys['\\']
     keys_git.c = { ":Telescope git_commits<CR>", "Search commit history" }
     keys_git.b = { ":Telescope git_branches<CR>", "Search branches" }
 end
 
+return M

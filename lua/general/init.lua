@@ -1,9 +1,9 @@
-require "general.helpers"
-require "general.mappings"
+local utils = require "general.helpers"
+local keys = require "general.mappings"
 
 local HOME = os.getenv("HOME")
 
-set_opts {
+utils.set_opts {
     mouse = 'a';
     ts = 4, sw = 4;
     expandtab = true;
@@ -25,4 +25,4 @@ set_opts {
     wrap = false;
 }
 
-require "which-key".register(keys)
+require "which-key".register(keys.general_keys)

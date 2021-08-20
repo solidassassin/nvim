@@ -1,5 +1,5 @@
-require "general.helpers"
-require "general.mappings"
+local utils = require "general.helpers"
+local keys = require "general.mappings"
 
 local cmd = vim.cmd
 local fn = vim.fn
@@ -7,11 +7,11 @@ local luasnip = require "luasnip"
 
 _G.tab_complete = function()
     if fn.pumvisible() == 1 then
-        return terms "<C-n>"
+        return utils.terms "<C-n>"
     elseif luasnip and luasnip.expand_or_jumpable() then
-        return terms "<Plug>luasnip-expand-or-jump"
-    elseif check_back_space() then
-        return terms "<Tab>"
+        return utils.terms "<Plug>luasnip-expand-or-jump"
+    elseif utils.check_back_space() then
+        return utils.terms "<Tab>"
     else
         return fn['compe#complete']()
     end
@@ -19,23 +19,23 @@ end
 
 _G.s_tab_complete = function()
     if fn.pumvisible() == 1 then
-        return terms "<C-p>"
+        return utils.terms "<C-p>"
     elseif luasnip and luasnip.jumpable(-1) then
-        return terms "<Plug>luasnip-jump-prev"
+        return utils.terms "<Plug>luasnip-jump-prev"
     else
-        return terms "<S-Tab>"
+        return utils.terms "<S-Tab>"
     end
 end
 
 local function on_attach(client, bufnr)
-    keys["<Space>"] = saga_keys
-    map { "<Esc>", [[<C-\><C-n>:lua require'lspsaga.floaterm'.close_float_terminal()<CR>]], mode = 't' }
+    keys.general_keys["<Space>"] = keys.saga_keys
+    utils.map { "<Esc>", [[<C-\><C-n>:lua require'lspsaga.floaterm'.close_float_terminal()<CR>]], mode = 't' }
     cmd [[au CursorHold <buffer> lua require'lspsaga.diagnostic'.show_line_diagnostics()]]
 
     if client.resolved_capabilities.document_formatting then
-        keys["<Space>"].f = {"<Cmd>lua vim.lsp.buf.formatting()<CR>", "Format text"}
+        keys.general_keys["<Space>"].f = {"<Cmd>lua vim.lsp.buf.formatting()<CR>", "Format text"}
     elseif client.resolved_capabilities.document_range_formatting then
-        keys["<Space>"].f = {"<Cmd>lua vim.lsp.buf.range_formatting()<CR>", "Range format"}
+        keys.general_keys["<Space>"].f = {"<Cmd>lua vim.lsp.buf.range_formatting()<CR>", "Range format"}
     end
 
     if client.resolved_capabilities.document_highlight then
@@ -47,7 +47,7 @@ local function on_attach(client, bufnr)
             augroup END
         ]]
     end
-    require "which-key".register(keys)
+    require "which-key".register(keys.general_keys)
 end
 
 local cap = vim.lsp.protocol.make_client_capabilities()
@@ -58,7 +58,7 @@ local defaults = {
     on_attach = on_attach;
 }
 
-language_servers({
+utils.language_servers({
     rust_analyzer = {};
     tsserver = {};
     julials = {};
