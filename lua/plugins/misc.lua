@@ -4,7 +4,7 @@ local g = vim.g
 
 require "lsp-rooter".setup {}
 require "presence":setup {
-	main_image = "file";
+    main_image = "file";
 }
 
 g.nvim_tree_auto_open = 1
