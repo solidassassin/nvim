@@ -58,12 +58,17 @@ local defaults = {
     on_attach = on_attach;
 }
 
+require "flutter-tools".setup {
+    lsp = {
+        on_attach = on_attach
+    }
+}
+
 utils.language_servers({
     rust_analyzer = {};
     tsserver = {};
     julials = {};
     pyright = {};
-dartls = {};
     bashls = {};
     gopls = {};
     dockerls = {};
@@ -89,4 +94,3 @@ dartls = {};
         }
     };
 }, defaults)
-

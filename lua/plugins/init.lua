@@ -33,6 +33,7 @@ require "paq" {
     -- Language specific
     "JuliaEditorSupport/julia-vim";
     { "iamcco/markdown-preview.nvim", run = update_mkdp };
+    "akinsho/flutter-tools.nvim";
 }
 
 require "plugins.misc"
