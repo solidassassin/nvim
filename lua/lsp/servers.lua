@@ -82,7 +82,7 @@ utils.language_servers(
         yamlls = {
             settings = {
                 yaml = {
-                    schemas = {kubernetes = "k-*"}
+                    schemas = {kubernetes = "*"}
                 }
             }
         },
