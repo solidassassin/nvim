@@ -14,10 +14,10 @@ require "nvim-treesitter.configs".setup {
 }
 
 require "nvim-autopairs".setup {
-    check_ts = true;
+    check_ts = true
 }
 
-vim.cmd[[
+vim.cmd [[
     augroup theming
         au!
         au CursorMoved *.{yaml,yml} :hi TSField guifg=#f56278
@@ -25,6 +25,6 @@ vim.cmd[[
     augroup END
 ]]
 
-g.indent_blankline_char = '│'
+g.indent_blankline_char = "│"
 g.indent_blankline_use_treesitter = true
 g.indent_blankline_show_current_context = true

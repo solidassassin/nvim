@@ -9,7 +9,7 @@ end
 -- I use which-keys instead of this
 function M.map(t)
     local opts = {
-        t.mode or 'n',
+        t.mode or "n",
         t[1],
         t[2],
         {
@@ -18,7 +18,7 @@ function M.map(t)
             nowait = t.nowait,
             unique = t.unique,
             script = t.script,
-            expr = t.expr,
+            expr = t.expr
         }
     }
     vim.api.nvim_set_keymap(unpack(opts))
@@ -27,7 +27,9 @@ end
 -- I don't really use this, but might come in handy
 function M.prequire(...)
     local status, lib = pcall(require, ...)
-    if status then return lib end
+    if status then
+        return lib
+    end
     return nil
 end
 
@@ -36,8 +38,8 @@ function M.terms(str)
 end
 
 function M.check_back_space()
-    local col = vim.fn.col('.') - 1
-    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+    local col = vim.fn.col(".") - 1
+    if col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
         return true
     else
         return false
@@ -49,7 +51,9 @@ function M.language_servers(langs, defaults)
 
     for _, conf in pairs(langs) do
         for a, b in pairs(defaults) do
-            conf[a] = b
+            if conf[a] == nil then
+                conf[a] = b
+            end
         end
     end
 
