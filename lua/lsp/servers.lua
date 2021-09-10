@@ -3,7 +3,7 @@ local keys = require "general.mappings"
 
 local cmd = vim.cmd
 local fn = vim.fn
-local luasnip = require "luasnip"
+local luasnip = utils.prequire "luasnip"
 
 _G.tab_complete = function()
     if fn.pumvisible() == 1 then
@@ -78,7 +78,7 @@ utils.language_servers(
         terraformls = {},
         html = {},
         cssls = {},
-        svelte = {},
+        jsonls = {},
         yamlls = {
             settings = {
                 yaml = {

@@ -29,7 +29,7 @@ require "paq" {
     "lewis6991/gitsigns.nvim",
     "onsails/lspkind-nvim", -- incomplete
     "folke/trouble.nvim",
-    "marko-cerovac/material.nvim",
+    "solidassassin/material.nvim",
     -- Language specific
     "JuliaEditorSupport/julia-vim",
     {"iamcco/markdown-preview.nvim", run = update_mkdp},

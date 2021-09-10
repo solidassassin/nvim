@@ -1,10 +1,31 @@
 local g = vim.g
 
-require "material".set()
+require "material".setup {
+    contrast = true,
+    italics = {
+        comments = true,
+        keywords = false,
+        functions = false,
+        strings = false,
+        variables = false
+    },
+    text_contrast = {
+        lighter = false,
+        darker = false
+    },
+    disable = {
+        background = false,
+        term_colors = false,
+        eob_lines = true
+    },
+    custom_colors = {
+        variable = "#8b8ca3",
+        field = "#717CB4"
+    }
+}
 
 g.material_style = "deep ocean"
-g.material_variable_color = "#8b8ca3"
-g.material_hide_eob = true
+vim.cmd [[colorscheme material]]
 
 require "gitsigns".setup {
     keymaps = {}
@@ -27,8 +48,9 @@ require "lspsaga".init_lsp_saga {
 require "bufferline".setup {
     options = {
         view = "default",
-        numbers = "buffer_id",
-        number_style = "",
+        numbers = function(opts)
+            return opts.id .. "."
+        end,
         buffer_close_icon = "",
         modified_icon = "●",
         left_trunc_marker = "",

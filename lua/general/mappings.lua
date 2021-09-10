@@ -8,7 +8,7 @@ M.general_keys = {
     -- Nvim tree
     ["<S-e>"] = {":NvimTreeToggle<CR>", "Toggle file explorer"},
     -- Telescope and gitsigns
-    ["/"] = {":Telescope live_grep<CR>", "Search text"},
+    ["/"] = {":lua require('telescope.builtin').live_grep({grep_open_files = true})<CR>", "Search text"},
     ["\\"] = {
         f = {":Telescope find_files<CR>", "Search file"},
         h = {":Telescope search_history<CR>", "Search history"},
