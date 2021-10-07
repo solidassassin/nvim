@@ -79,6 +79,9 @@ utils.language_servers(
         html = {},
         cssls = {},
         jsonls = {},
+        zeta_note = {
+            cmd = {"zeta-note"}
+        },
         yamlls = {
             settings = {
                 yaml = {

@@ -6,9 +6,9 @@ M.general_keys = {
     ["<C-s>"] = {":%s/", "Replace", silent = false},
     ["<S-q>"] = {":bdelete<CR>", "Delete buffer"},
     -- Nvim tree
-    ["<S-e>"] = {":NvimTreeToggle<CR>", "Toggle file explorer"},
+    ["<S-e>"] = {require'nvim-tree'.toggle, "Toggle file explorer"},
     -- Telescope and gitsigns
-    ["/"] = {":lua require('telescope.builtin').live_grep({grep_open_files = true})<CR>", "Search text"},
+    ["/"] = {":lua require 'telescope.builtin'.live_grep {grep_open_files = true}<CR>", "Search text"},
     ["\\"] = {
         f = {":Telescope find_files<CR>", "Search file"},
         h = {":Telescope search_history<CR>", "Search history"},
