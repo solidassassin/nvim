@@ -8,8 +8,8 @@ local luasnip = utils.prequire "luasnip"
 _G.tab_complete = function()
     if fn.pumvisible() == 1 then
         return utils.terms "<C-n>"
-    elseif luasnip and luasnip.expand_or_jumpable() then
-        return utils.terms "<Plug>luasnip-expand-or-jump"
+    --elseif luasnip and luasnip.expand_or_jumpable() then
+    --    return utils.terms "<Plug>luasnip-expand-or-jump"
     elseif utils.check_back_space() then
         return utils.terms "<Tab>"
     else
@@ -85,7 +85,7 @@ utils.language_servers(
         yamlls = {
             settings = {
                 yaml = {
-                    schemas = {kubernetes = "*"}
+                    --schemas = {kubernetes = "k-*"}
                 }
             }
         },

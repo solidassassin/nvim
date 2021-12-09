@@ -1,4 +1,4 @@
-local g = vim.g
+local constants = require "general.constants"
 
 require "material".setup {
     contrast = true,
@@ -24,7 +24,7 @@ require "material".setup {
     }
 }
 
-g.material_style = "deep ocean"
+vim.g.material_style = "deep ocean"
 vim.cmd [[colorscheme material]]
 
 require "gitsigns".setup {
@@ -33,16 +33,29 @@ require "gitsigns".setup {
 
 require "trouble".setup {}
 
+local icons = constants.icons
+
 require "lualine".setup {
     options = {
         theme = "material-nvim"
+    },
+    sections = {
+        lualine_b = {
+            "branch",
+            "diff",
+            {
+                "diagnostics",
+                sources = {"nvim_lsp"},
+                symbols = {error = icons.error, warn = icons.warning, info = icons.info, hint = icons.hint}
+            }
+        }
     }
 }
 
 require "lspsaga".init_lsp_saga {
-    error_sign = "🗙",
-    warn_sign = "▲",
-    hint_sign = ""
+    error_sign = icons.error,
+    warn_sign = icons.warning,
+    hint_sign = icons.hint
 }
 
 require "bufferline".setup {
@@ -51,10 +64,10 @@ require "bufferline".setup {
         numbers = function(opts)
             return opts.id .. "."
         end,
-        buffer_close_icon = "",
-        modified_icon = "●",
-        left_trunc_marker = "",
-        right_trunc_marker = "",
+        buffer_close_icon = icons.close,
+        modified_icon = icons.modified,
+        left_trunc_marker = icons.left,
+        right_trunc_marker = icons.right,
         max_name_length = 18,
         max_prefix_length = 15,
         tab_size = 20,

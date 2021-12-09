@@ -12,7 +12,7 @@ require "paq" {
     -- Lsp
     "neovim/nvim-lspconfig",
     "hrsh7th/nvim-compe",
-    "glepnir/lspsaga.nvim",
+    "tami5/lspsaga.nvim",
     -- Telescope
     "nvim-telescope/telescope.nvim",
     -- Helpers

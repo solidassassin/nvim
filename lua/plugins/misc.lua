@@ -1,8 +1,5 @@
--- Just some insignificant plugin initialization
-
-local g = vim.g
-
 require "lsp-rooter".setup {}
+
 require "presence":setup {
     main_image = "file"
 }
@@ -20,7 +17,6 @@ require "nvim-tree".setup {
     open_on_tab = false,
     hijack_cursor = true,
     update_cwd = false,
-    lsp_diagnostics = true,
     update_focused_file = {
         enable = true,
         update_cwd = false,
@@ -38,6 +34,15 @@ require "nvim-tree".setup {
         mappings = {
             custom_only = false,
             list = {}
+        }
+    },
+    diagnostics = {
+        enable = true,
+        icons = {
+            hint = "",
+            info = "",
+            warning = "▲",
+            error = "🗙",
         }
     }
 }
@@ -66,6 +71,15 @@ require "formatter".setup {
             end
         },
         yaml = {
+            function()
+                return {
+                    exe = "prettier",
+                    args = {"--stdin-filepath", vim.fn.fnameescape(get_name(0)), "--single-quote"},
+                    stdin = true
+                }
+            end
+        },
+        json = {
             function()
                 return {
                     exe = "prettier",
