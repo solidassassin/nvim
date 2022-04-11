@@ -11,11 +11,13 @@ require "paq" {
     "L3MON4D3/LuaSnip", -- incomplete
     -- Lsp
     "neovim/nvim-lspconfig",
+    "williamboman/nvim-lsp-installer",
     "hrsh7th/nvim-compe",
     "tami5/lspsaga.nvim",
     -- Telescope
     "nvim-telescope/telescope.nvim",
     -- Helpers
+    "numToStr/Comment.nvim",
     "windwp/nvim-autopairs",
     "folke/which-key.nvim",
     "kyazdani42/nvim-tree.lua",
@@ -29,7 +31,7 @@ require "paq" {
     "lewis6991/gitsigns.nvim",
     "onsails/lspkind-nvim", -- incomplete
     "folke/trouble.nvim",
-    "solidassassin/material.nvim",
+    "marko-cerovac/material.nvim",
     -- Language specific
     "JuliaEditorSupport/julia-vim",
     {"iamcco/markdown-preview.nvim", run = update_mkdp},

@@ -1,7 +1,15 @@
 local constants = require "general.constants"
 
 require "material".setup {
-    contrast = true,
+    contrast = {
+		sidebars = true,
+		floating_windows = false,
+		line_numbers = false,
+		sign_column = false,
+		cursor_line = true,
+		non_current_windows = false,
+		popup_menu = false
+	},
     italics = {
         comments = true,
         keywords = false,
@@ -37,7 +45,7 @@ local icons = constants.icons
 
 require "lualine".setup {
     options = {
-        theme = "material-nvim"
+        theme = "auto"
     },
     sections = {
         lualine_b = {
@@ -46,7 +54,12 @@ require "lualine".setup {
             {
                 "diagnostics",
                 sources = {"nvim_lsp"},
-                symbols = {error = icons.error, warn = icons.warning, info = icons.info, hint = icons.hint}
+                symbols = {
+                    error = icons.error,
+                    warn = icons.warning,
+                    info = icons.info,
+                    hint = icons.hint
+                }
             }
         }
     }

@@ -1,5 +1,6 @@
 local utils = require "general.helpers"
 local keys = require "general.mappings"
+local lsp_installer = require "nvim-lsp-installer"
 
 local cmd = vim.cmd
 local fn = vim.fn
@@ -55,17 +56,32 @@ end
 local cap = vim.lsp.protocol.make_client_capabilities()
 cap.textDocument.completion.completionItem.snippetSupport = true
 
-local defaults = {
-    capabilities = cap,
-    on_attach = on_attach
-}
-
 require "flutter-tools".setup {
     lsp = {
         on_attach = on_attach
     }
 }
 
+lsp_installer.on_server_ready(function(server)
+    local opts = {
+        capabilities = cap,
+        on_attach = on_attach
+    }
+
+    if server.name == "sumneko_lua" then
+        opts.settings = {
+            Lua = {
+                diagnostics = {
+                    globals = {"vim", "_G"}
+                }
+            }
+        }
+
+    end
+
+    server:setup(opts)
+end)
+--[[
 utils.language_servers(
     {
         rust_analyzer = {},
@@ -79,9 +95,7 @@ utils.language_servers(
         html = {},
         cssls = {},
         jsonls = {},
-        zeta_note = {
-            cmd = {"zeta-note"}
-        },
+        ltex = {},
         yamlls = {
             settings = {
                 yaml = {
@@ -90,7 +104,7 @@ utils.language_servers(
             }
         },
         sumneko_lua = {
-            cmd = {"lua-language-server"},
+            cmd = {"~/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/lua-language-server"},
             settings = {
                 Lua = {
                     diagnostics = {
@@ -102,3 +116,4 @@ utils.language_servers(
     },
     defaults
 )
+--]]

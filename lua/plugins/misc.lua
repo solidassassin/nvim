@@ -1,5 +1,5 @@
 require "lsp-rooter".setup {}
-
+require "Comment".setup()
 require "presence":setup {
     main_image = "file"
 }
@@ -30,7 +30,7 @@ require "nvim-tree".setup {
         width = 30,
         height = 30,
         side = "left",
-        auto_resize = true,
+        auto_resize = false,
         mappings = {
             custom_only = false,
             list = {}
@@ -42,7 +42,7 @@ require "nvim-tree".setup {
             hint = "",
             info = "",
             warning = "▲",
-            error = "🗙",
+            error = "🗙"
         }
     }
 }
@@ -83,7 +83,7 @@ require "formatter".setup {
             function()
                 return {
                     exe = "prettier",
-                    args = {"--stdin-filepath", vim.fn.fnameescape(get_name(0)), "--single-quote"},
+                    args = {"--stdin-filepath", vim.fn.fnameescape(get_name(0))},
                     stdin = true
                 }
             end
@@ -95,7 +95,6 @@ require "formatter".setup {
                     args = {
                         "--stdin-filepath",
                         vim.fn.fnameescape(get_name(0)),
-                        "--single-quote",
                         "--prose-wrap always"
                     },
                     stdin = true
