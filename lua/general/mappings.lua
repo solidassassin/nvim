@@ -3,7 +3,7 @@ local M = {}
 M.general_keys = {
     -- NOTE: Some mappings are assigned in the lspconfig `on_attach` function
     ["<Esc>"] = {":nohlsearch<CR>", "Exit search"},
-    ["<C-s>"] = {":%s/", "Replace", silent = false},
+    ["<C-s>"] = {":%s/\\v", "Replace", silent = false},
     ["<S-q>"] = {":bdelete<CR>", "Delete buffer"},
     -- Nvim tree
     ["<S-e>"] = {require'nvim-tree'.toggle, "Toggle file explorer"},

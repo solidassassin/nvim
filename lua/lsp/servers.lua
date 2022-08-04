@@ -81,39 +81,3 @@ lsp_installer.on_server_ready(function(server)
 
     server:setup(opts)
 end)
---[[
-utils.language_servers(
-    {
-        rust_analyzer = {},
-        tsserver = {},
-        julials = {},
-        pyright = {},
-        bashls = {},
-        gopls = {},
-        dockerls = {},
-        terraformls = {},
-        html = {},
-        cssls = {},
-        jsonls = {},
-        ltex = {},
-        yamlls = {
-            settings = {
-                yaml = {
-                    --schemas = {kubernetes = "k-*"}
-                }
-            }
-        },
-        sumneko_lua = {
-            cmd = {"~/.local/share/nvim/lsp_servers/sumneko_lua/extension/server/bin/lua-language-server"},
-            settings = {
-                Lua = {
-                    diagnostics = {
-                        globals = {"vim", "_G"}
-                    }
-                }
-            }
-        }
-    },
-    defaults
-)
---]]

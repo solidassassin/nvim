@@ -1,7 +1,7 @@
 local g = vim.g
 
 require "nvim-treesitter.configs".setup {
-    ensure_installed = "maintained",
+    ensure_installed = "all",
     highlight = {
         enable = true
     },
@@ -13,17 +13,15 @@ require "nvim-treesitter.configs".setup {
     }
 }
 
-require "nvim-treesitter.parsers".get_parser_configs().gotmpl = {
+local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
+
+parser_config.gotmpl = {
     install_info = {
         url = "https://github.com/ngalaiko/tree-sitter-go-template",
         files = {"src/parser.c"}
     },
     filetype = "gotmpl",
-    used_by = {"gohtmltmpl", "gotexttmpl", "gotmpl"}
-}
-
-require "nvim-autopairs".setup {
-    check_ts = true
+    used_by = {"gohtmltmpl", "gotexttmpl", "gotmpl", "yaml"}
 }
 
 g.indent_blankline_char = "│"

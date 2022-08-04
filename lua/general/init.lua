@@ -26,4 +26,26 @@ utils.set_opts {
     wrap = false
 }
 
+vim.api.nvim_create_autocmd(
+    "FileType",
+    {
+        pattern = {"terraform"},
+        callback = function ()
+            vim.opt.ts = 2
+            vim.opt.sw = 2
+        end
+    }
+)
+
+-- Hack for syntax highlighting in Helm
+vim.api.nvim_create_autocmd(
+    {"BufNewFile", "BufRead"},
+    {
+        pattern = {"*.gotmpl", "*.tpl", "*/templates/*.yaml", "*/templates/*.yml"},
+        callback = function ()
+            vim.opt_local.filetype = "gotmpl"
+        end
+    }
+)
+
 require "which-key".register(keys.general_keys)

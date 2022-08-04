@@ -1,5 +1,6 @@
 require "lsp-rooter".setup {}
 require "Comment".setup()
+require "nvim-autopairs".setup {}
 require "presence":setup {
     main_image = "file"
 }
@@ -9,11 +10,6 @@ require "nvim-tree".setup {
     hijack_netrw = true,
     open_on_setup = true,
     ignore_ft_on_setup = {},
-    update_to_buf_dir = {
-        enable = true,
-        auto_open = true
-    },
-    auto_close = true,
     open_on_tab = false,
     hijack_cursor = true,
     update_cwd = false,
@@ -26,14 +22,10 @@ require "nvim-tree".setup {
         cmd = nil,
         args = {}
     },
-    view = {
-        width = 30,
-        height = 30,
-        side = "left",
-        auto_resize = false,
-        mappings = {
-            custom_only = false,
-            list = {}
+    renderer = {
+        highlight_git = true,
+        indent_markers = {
+            enable = true
         }
     },
     diagnostics = {
