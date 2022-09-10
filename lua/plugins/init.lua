@@ -11,7 +11,8 @@ require "paq" {
     "L3MON4D3/LuaSnip", -- incomplete
     -- Lsp
     "neovim/nvim-lspconfig",
-    "williamboman/nvim-lsp-installer",
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
     "hrsh7th/nvim-compe",
     "tami5/lspsaga.nvim",
     -- Telescope

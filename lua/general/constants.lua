@@ -3,14 +3,16 @@ local M = {}
 M.theme = "material"
 
 M.icons = {
-    error = "🗙",
+    error = "",
+    close = "",
     warning = "▲",
     hint = "",
     info = "",
-    close = "",
     modified = "●",
+    in_progress = "●",
     left = "",
-    right = ""
+    right = "",
+    done = "✔️",
 }
 
 return M

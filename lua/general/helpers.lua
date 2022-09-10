@@ -6,7 +6,7 @@ function M.set_opts(options)
     end
 end
 
--- I use which-keys instead of this
+-- Which-keys used instead of this
 function M.map(t)
     vim.api.nvim_set_keymap(
         t.mode or "n",
@@ -41,28 +41,16 @@ function M.check_back_space()
     return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
 end
 
+-- Not in use (language servers are loaded in mason hook instead)
 function M.language_servers(langs, defaults)
     local lsp = require "lspconfig"
-    local lsp_installer = require "nvim-lsp-installer"
 
     for lang, conf in pairs(langs) do
-        local server_is_found, server = lsp_installer.get_server(lang)
-
-        if server_is_found then
-            if not server:is_installed() then
-                print("Installing " .. lang)
-                server:install()
-            end
-        end
-
         for a, b in pairs(defaults) do
             if conf[a] == nil then
                 conf[a] = b
             end
         end
-    end
-
-    for lang, conf in pairs(langs) do
         lsp[lang].setup(conf)
     end
 end

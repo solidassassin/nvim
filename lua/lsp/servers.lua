@@ -1,16 +1,21 @@
 local utils = require "general.helpers"
+local constants = require "general.constants"
 local keys = require "general.mappings"
-local lsp_installer = require "nvim-lsp-installer"
+
+local lsp_config = require "lspconfig"
+local luasnip = require "luasnip"
+local mason = require "mason"
+local lsp_install = require "mason-lspconfig"
 
 local cmd = vim.cmd
 local fn = vim.fn
-local luasnip = utils.prequire "luasnip"
+
 
 _G.tab_complete = function()
     if fn.pumvisible() == 1 then
         return utils.terms "<C-n>"
-    --elseif luasnip and luasnip.expand_or_jumpable() then
-    --    return utils.terms "<Plug>luasnip-expand-or-jump"
+        --elseif luasnip and luasnip.expand_or_jumpable() then
+        --    return utils.terms "<Plug>luasnip-expand-or-jump"
     elseif utils.check_back_space() then
         return utils.terms "<Tab>"
     else
@@ -28,16 +33,16 @@ _G.s_tab_complete = function()
     end
 end
 
-local function on_attach(client, bufnr)
-    utils.map {"<Esc>", [[<C-\><C-n>:lua require'lspsaga.floaterm'.close_float_terminal()<CR>]], mode = "t"}
+local function on_attach(client, _)
+    utils.map { "<Esc>", [[<C-\><C-n>:lua require'lspsaga.floaterm'.close_float_terminal()<CR>]], mode = "t" }
     cmd [[au CursorHold <buffer> lua require'lspsaga.diagnostic'.show_line_diagnostics()]]
 
     if client.resolved_capabilities.document_formatting then
-        keys.saga_keys.f = {"<Cmd>lua vim.lsp.buf.formatting()<CR>", "Format text"}
+        keys.saga_keys.f = { "<Cmd>lua vim.lsp.buf.formatting()<CR>", "Format text" }
     elseif client.resolved_capabilities.document_range_formatting then
-        keys.saga_keys.f = {"<Cmd>lua vim.lsp.buf.range_formatting()<CR>", "Range format"}
+        keys.saga_keys.f = { "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", "Range format" }
     else
-        keys.saga_keys.f = {"<Cmd>:Format<CR>", "Format text"}
+        keys.saga_keys.f = { "<Cmd>:Format<CR>", "Format text" }
     end
 
     if client.resolved_capabilities.document_highlight then
@@ -62,22 +67,35 @@ require "flutter-tools".setup {
     }
 }
 
-lsp_installer.on_server_ready(function(server)
-    local opts = {
-        capabilities = cap,
-        on_attach = on_attach
-    }
 
-    if server.name == "sumneko_lua" then
-        opts.settings = {
-            Lua = {
-                diagnostics = {
-                    globals = {"vim", "_G"}
+mason.setup {
+    ui = {
+        icons = {
+            package_installed = constants.icons.done,
+            package_pending = constants.icons.in_progress,
+            package_uninstalled = constants.icons.error
+        }
+    }
+}
+
+lsp_install.setup()
+lsp_install.setup_handlers {
+    function(server)
+        local opts = {
+            capabilities = cap,
+            on_attach = on_attach
+        }
+        if server == "sumneko_lua" then
+            opts.settings = {
+                Lua = {
+                    diagnostics = {
+                        globals = { "vim", "_G" }
+                    }
                 }
             }
-        }
 
+        end
+        lsp_config[server].setup(opts)
     end
+}
 
-    server:setup(opts)
-end)
