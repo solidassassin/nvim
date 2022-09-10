@@ -27,6 +27,10 @@ M.general_keys = {
     ["<S-Down>"] = {":wincmd j<CR>", "Navigate down"}
 }
 
+M.visual_keys = {
+    ["<C-s>"] = {":s/\\v", "Replace selection", mode = "v", silent = false}
+}
+
 M.saga_keys = {
     name = "Lsp",
     p = {"<cmd>lua require 'lspsaga.provider'.preview_definition()<CR>", "Preview definition"},

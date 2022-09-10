@@ -41,11 +41,14 @@ vim.api.nvim_create_autocmd(
 vim.api.nvim_create_autocmd(
     {"BufNewFile", "BufRead"},
     {
-        pattern = {"*.gotmpl", "*.tpl", "*/templates/*.yaml", "*/templates/*.yml"},
+        pattern = {"*.gotmpl", "*.tpl", "*.tmpl", "*/templates/*.yaml", "*/templates/*.yml"},
         callback = function ()
             vim.opt_local.filetype = "gotmpl"
         end
     }
 )
 
-require "which-key".register(keys.general_keys)
+local which_key = require "which-key"
+
+which_key.register(keys.general_keys)
+which_key.register(keys.visual_keys)
