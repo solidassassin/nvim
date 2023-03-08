@@ -1,6 +1,14 @@
--- Not much here ¯\_(ツ)_/¯
+local config = require("config_loader")
 
-require "plugins"
-require "lsp"
-require "visuals"
-require "general"
+local conf = {}
+
+-- Common configuration options
+conf.common = {}
+-- Linux specific configuration options
+conf.linux = {}
+-- Mac specific configuration options
+conf.mac = {}
+-- Windows specific configuration options
+conf.win = {}
+
+config.setup(conf)
