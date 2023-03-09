@@ -1,5 +1,4 @@
 local tb = require("utils.tables")
-local loaders = require("utils.loaders")
 
 local lsp = require("config.lsp")
 local nvim = require("config.nvim")
@@ -8,58 +7,36 @@ local visuals = require("config.visuals")
 
 local M = {}
 
-local function load_opts(overrides)
-    for key, value in pairs(tb.merge(nvim.opts, overrides.opts)) do
-        vim.opt[key] = value
-    end
-    return overrides
-end
-
-local function load_globals(overrides)
-    for key, value in pairs(tb.merge(nvim.globals, overrides.globals)) do
-        vim.g[key] = value
-    end
-    return overrides
-end
-
-local function load_autocmds(overrides)
-    for _, autocmd in ipairs(nvim.autocmds) do
-        vim.api.nvim_create_autocmd(
-            autocmd.event,
-            {
-                pattern = autocmd.pattern,
-                callback = autocmd.callback
-            }
-        )
-    end
-end
-
-local function load_plugins(overrides)
+local function load_plugins(opts)
     require("lazy").setup({
         {
             "neovim/nvim-lspconfig",
             config = function ()
-                loaders.lspconfig(
-                    tb.merge(lsp.lspconfig, overrides.lspconfig)
-                )
+                lsp.load_lspconfig(opts.lspconfig)
             end
         },
         {
             "jose-elias-alvarez/null-ls.nvim",
-            opts = tb.merge(lsp.null_ls, overrides.null_ls),
-            dependencies = "nvim-lua/plenary.nvim"
+            dependencies = "nvim-lua/plenary.nvim",
+            config = function ()
+                lsp.load_nulls(opts.null_ls)
+            end
         },
         {
             "williamboman/mason.nvim",
-            opts = tb.merge(lsp.mason, overrides.mason)
+            config = function ()
+                lsp.load_mason(opts.mason)
+            end
         },
         {
             "williamboman/mason-lspconfig.nvim",
-            opts = tb.merge(lsp.mason_lspconfig, overrides.mason_lspconfig),
             dependencies = {
                 "neovim/nvim-lspconfig",
                 "williamboman/mason.nvim"
-            }
+            },
+            config = function ()
+                lsp.load_mason_lspconfig(opts.mason_lspconfig)
+            end
         },
         {
             "jay-babu/mason-null-ls.nvim",
@@ -68,9 +45,7 @@ local function load_plugins(overrides)
                 "williamboman/mason.nvim"
             },
             config = function ()
-                loaders.mason_null_ls(
-                    tb.merge(lsp.mason_null_ls, overrides.mason_null_ls)
-                )
+                lsp.load_mason_nulls(opts.mason_null_ls)
             end
         },
         {
@@ -80,12 +55,14 @@ local function load_plugins(overrides)
                 "hrsh7th/cmp-buffer",
                 "hrsh7th/cmp-path",
                 "hrsh7th/cmp-cmdline",
-                "saadparwaiz1/cmp_luasnip",
-                "onsails/lspkind-nvim"
+                "onsails/lspkind-nvim",
+                {
+                    "saadparwaiz1/cmp_luasnip",
+                    dependencies = "L3MON4D3/LuaSnip"
+                }
             },
             config = function ()
-                local cmp = require("cmp")
-                cmp.setup(lsp.cmp(cmp))
+                lsp.load_cmp(opts.cmp)
             end
         },
         {
@@ -110,54 +87,62 @@ local function load_plugins(overrides)
 
         {
             "nvim-tree/nvim-tree.lua",
-            opts = tb.merge(addons.nvim_tree, overrides.nvim_tree)
-        }, -- done
+            config = function ()
+                addons.load_nvimtree(opts.nvim_tree)
+            end
+        },
         {
             "ahmedkhalf/project.nvim",
             config = function ()
-                require("project_nvim").setup(
-                    tb.merge(addons.project, overrides.project)
-                )
+                addons.load_project(opts.project)
             end
-        }, -- done
+        },
         {
             "andweeb/presence.nvim",
             config = function ()
-                require("presence"):setup(
-                    tb.merge(addons.presence, overrides.presence)
-                )
+                addons.load_presence(opts.presence)
             end
-        }, -- done
+        },
         {
             "nvim-treesitter/nvim-treesitter",
             build = ":TSUpdate",
             config = function ()
-                loaders.treesitter(
-                    tb.merge(visuals.treesitter, overrides.treesitter)
-                )
+                visuals.load_treesitter(opts.treesitter)
             end
-        }, -- done
+        },
         {
             "lukas-reineke/indent-blankline.nvim",
-            opts = tb.merge(visuals.indent_blankline, overrides.indent_blankline)
-        }, -- done
+            config = function ()
+                visuals.load_indent_blankline(opts.indent_blankline)
+            end
+        },
         {
             "hoob3rt/lualine.nvim",
-            opts = tb.merge(visuals.lualine, overrides.lualine)
-        }, -- done
+            config = function ()
+                visuals.load_lualine(opts.lualine)
+            end
+        },
         {
             "akinsho/bufferline.nvim",
             dependencies = "nvim-tree/nvim-web-devicons",
             config = true
         },
         {
+            "nvim-telescope/telescope.nvim",
+            tag = "0.1.1",
+            dependencies = "nvim-lua/plenary.nvim",
+            config = true
+        },
+        {
             "glepnir/lspsaga.nvim",
             event = "BufRead",
-            opts = tb.merge(visuals.lspsaga, overrides.lspsaga),
             dependencies = {
               "nvim-tree/nvim-web-devicons",
               "nvim-treesitter/nvim-treesitter"
-            }
+            },
+            config = function ()
+                visuals.load_lspsaga(opts.lspsaga)
+            end
         },
         {
             "lewis6991/gitsigns.nvim",
@@ -170,9 +155,7 @@ local function load_plugins(overrides)
         {
             "marko-cerovac/material.nvim",
             config = function ()
-                loaders.material_theme(
-                    tb.merge(visuals.material_theme, overrides.material_theme)
-                )
+                visuals.load_material_theme(opts.material_theme)
             end
         },
         {
@@ -189,10 +172,10 @@ local function load_plugins(overrides)
 end
 
 function M.setup(overrides)
-    load_opts(overrides)
-    load_globals(overrides)
+    nvim.load_opts(overrides)
+    nvim.load_globals(overrides)
+    nvim.load_autocmds(overrides)
     load_plugins(overrides)
-    load_autocmds(overrides)
 end
 
 return M

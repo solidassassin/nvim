@@ -1,47 +1,102 @@
+local tb = require("utils.tables")
+local icons = {
+  Hint = "",
+  Info = "",
+  Warn = "▲",
+  Error = "🗙"
+}
+
+local function lsp_on_attach(keys)
+  return function (client, _)
+      if client.server_capabilities.document_formatting then
+          keys.saga_keys = { "<Cmd>lua vim.lsp.buf.formatting()<CR>", "Format text" }
+      elseif client.server_capabilities.document_range_formatting then
+          keys.saga_keys = { "<Cmd>lua vim.lsp.buf.range_formatting()<CR>", "Range format" }
+      end
+      keys.general_keys = keys.saga_keys
+      --require "which-key".register(keys.general_keys)
+  end
+end
+
 local M = {}
 
-M.null_ls = {}
+function M.load_nulls(opts)
+  local config = {}
+  require("null-ls").setup(tb.merge(config, opts))
+end
 
-M.mason = {
-  ui = {
-    icons = {
-      package_installed = "✓",
-      package_pending = "➜",
-      package_uninstalled = "✗"
-    }
-  }
-}
-
-M.mason_lspconfig = {
-  automatic_installation = true
-}
-
-M.lspconfig = {
-  terraformls = {},
-  lua_ls = {
-    Lua = {
-      runtime = {
-        version = "LuaJIT",
-      },
-      diagnostics = {
-        globals = {"vim", "_G"},
+function M.load_mason(opts)
+  local config = {
+    ui = {
+      icons = {
+        package_installed = "✓",
+        package_pending = "➜",
+        package_uninstalled = "✗"
       }
     }
   }
-}
+  require("mason").setup(tb.merge(config, opts))
+end
 
-M.mason_null_ls = {
-  ensure_installed = {
-    "prettier",
-    --"rustfmt",
-    "black"
-  },
-  automatic_installation = true,
-  automatic_setup = true
-}
-  
-function M.cmp(cmp)
-  return {
+function M.load_mason_lspconfig(opts)
+  local config = {
+    automatic_installation = true
+  }
+  require("mason-lspconfig").setup(tb.merge(config, opts))
+end
+
+-- Configure on_attach
+-- List packages in main init
+function M.load_lspconfig(opts)
+  local lspconfig = require("lspconfig")
+  local config = {
+    terraformls = {},
+    lua_ls = {
+      Lua = {
+        runtime = {
+          version = "LuaJIT",
+        },
+        diagnostics = {
+          globals = {"vim", "_G"},
+        }
+      }
+    }
+  }
+
+  for type, icon in pairs(icons) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
+  end
+
+  for key, value in pairs(opts) do
+      lspconfig[key].setup({
+          -- on_attach = lsp_on_attach({}),
+          settings = value
+      })
+  end
+
+end
+
+-- List packages in main init
+function M.load_mason_nulls(opts)
+  local mason_null_ls = require("mason-null-ls")
+  local config = {
+    ensure_installed = {
+      "prettier",
+      --"rustfmt",
+      "black"
+    },
+    automatic_installation = true,
+    automatic_setup = true
+  }
+  mason_null_ls.setup(tb.merge(config, opts))
+  mason_null_ls.setup_handlers()
+end
+
+-- Configure tab walk
+function M.load_cmp(opts)
+  local cmp = require("cmp")
+  local config = {
     experimental = {
       ghost_text = true
     },
@@ -69,7 +124,6 @@ function M.cmp(cmp)
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
       ['<CR>'] = cmp.mapping.confirm({ select = true }),
-      ['<Tab>'] = cmp.select_next_item()
     }),
     sources = cmp.config.sources(
       {
@@ -81,6 +135,7 @@ function M.cmp(cmp)
       }
     )
   }
+  cmp.setup(tb.merge(config, opts))
 end
 
 return M

@@ -21,11 +21,19 @@ end
 function M.merge(base, override)
     if override == nil then
         return base
-    elseif base == nil then
-        return override
     end
     for key, value in pairs(override) do
         base[key] = value
+    end
+    return base
+end
+
+function M.concat(base, override)
+    if override == nil then
+        return base
+    end
+    for _, value in ipairs(override) do
+        table.insert(base, value)
     end
     return base
 end
