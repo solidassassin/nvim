@@ -68,7 +68,7 @@ function M.load_lspconfig(opts)
     vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
   end
 
-  for key, value in pairs(opts) do
+  for key, value in pairs(tb.merge(config, opts)) do
       lspconfig[key].setup({
           -- on_attach = lsp_on_attach({}),
           settings = value

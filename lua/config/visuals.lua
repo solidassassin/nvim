@@ -37,6 +37,12 @@ function M.load_treesitter(opts)
             }
         }
     }
+
+    -- Hackz
+    if opts == nil then
+        opts = {}
+    end
+
     require("nvim-treesitter.configs").setup(tb.merge(config.config, opts.config))
 
     for key, value in pairs(tb.merge(config.parsers, opts.parsers)) do

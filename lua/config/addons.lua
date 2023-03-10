@@ -3,7 +3,7 @@ local M = {}
 
 function M.load_project(opts)
     local config = {}
-    require("project").setup(tb.merge(config, opts))
+    require("project_nvim").setup(tb.merge(config, opts))
 end
 
 -- Not done
