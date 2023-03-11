@@ -40,6 +40,9 @@ end
 
 function M.load_mason_lspconfig(opts)
   local config = {
+    ensure_installed = {
+      "lua_ls"
+    },
     automatic_installation = true
   }
   require("mason-lspconfig").setup(tb.merge(config, opts))
@@ -93,7 +96,6 @@ function M.load_mason_nulls(opts)
   mason_null_ls.setup_handlers()
 end
 
--- Configure tab walk
 function M.load_cmp(opts)
   local cmp = require("cmp")
   local config = {
@@ -124,6 +126,20 @@ function M.load_cmp(opts)
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
       ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      ['<Tab>'] = function(fallback)
+        if cmp.visible() then
+          cmp.select_next_item()
+        else
+          fallback()
+        end
+      end,
+      ['<S-Tab>'] = function(fallback)
+        if cmp.visible() then
+          cmp.select_prev_item()
+        else
+          fallback()
+        end
+      end
     }),
     sources = cmp.config.sources(
       {
