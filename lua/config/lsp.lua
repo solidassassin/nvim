@@ -41,7 +41,8 @@ end
 function M.load_mason_lspconfig(opts)
   local config = {
     ensure_installed = {
-      "lua_ls"
+      "lua_ls",
+      "terraformls"
     },
     automatic_installation = true
   }
@@ -57,10 +58,13 @@ function M.load_lspconfig(opts)
     lua_ls = {
       Lua = {
         runtime = {
-          version = "LuaJIT",
+          version = "LuaJIT"
         },
         diagnostics = {
-          globals = {"vim", "_G"},
+          globals = {"vim", "_G"}
+        },
+        completion = {
+          callSnippet = "Replace"
         }
       }
     }
@@ -103,14 +107,14 @@ function M.load_cmp(opts)
       ghost_text = true
     },
     completion = {
-      completeopt = 'menu,menuone,noinsert'
+      completeopt = "menu,menuone,noinsert"
     },
     formatting = {
       format = require("lspkind").cmp_format({
-        mode = 'symbol_text',
+        mode = "symbol_text",
         -- preset = "codicons",
         maxwidth = 100,
-        ellipsis_char = '...',
+        ellipsis_char = "...",
       })
     },
     snippet = {
@@ -141,15 +145,12 @@ function M.load_cmp(opts)
         end
       end
     }),
-    sources = cmp.config.sources(
-      {
-        { name = 'nvim_lsp' },
-        { name = 'luasnip' },
-      },
-      {
-        { name = 'buffer' },
-      }
-    )
+    sources = cmp.config.sources({
+        { name = "nvim_lsp" },
+        { name = "luasnip" },
+        { name = "buffer" },
+        { name = "path" }
+    })
   }
   cmp.setup(tb.merge(config, opts))
 end
