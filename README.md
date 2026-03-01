@@ -1,7 +1,8 @@
 # My NeoVim config
 
-**NOTE:** This config is created for Unix systems and would require some
-modifications to work on Windows.
+## ATTENTION
+
+This configuration is outdated and not in use anymore. The new configuration utilizes NixVim and can be found [here](https://github.com/solidassassin/nvim-flake).
 
 ## Requirements
 
